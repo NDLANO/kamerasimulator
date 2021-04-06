@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=IE9">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+
+	<title>Kamerasimulator</title>
+	<meta name="description" content="Lær å bruke kamera i nettlesaren. Endre kamerainnstillingar som ISO, blendaropning og lukkartid for å sjå resultatet i sanntid."/>
+	<meta name="keywords" content="kamerasimulator, HTML5, Canvas, Javascript, linse, blender, ISO, lukkartid"/>
+	<meta name="author" content="Steve Ridout"/>
+	<meta property="og:url" content="https://statisk.ndla.no/kamerasimulator/" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Kamerasimulator" />
+	<meta property="og:description" content="Lær å bruke kamera i nettlesaren. Endre kamerainnstillingar som ISO, blendaropning og lukkartid for å sjå resultatet i sanntid." />
+	<meta property="og:image" content="https://statisk.ndla.no/kamerasimulator/img/kamerasimulator.jpg" />
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="./external/jquery-ui/css/ui-darkness/jquery-ui-1.9.0.custom.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/site.css?bust=$GIT_COMMIT" />
+
+	<script src="./external/require-jquery.js"></script>
+	<script src="./external/jquery-ui/js/jquery-ui-1.9.0.custom.min.js"></script>
+
+	<script>
+		require.config({
+			baseUrl: ".",
+			urlArgs: "bust=$GIT_COMMIT",
+		});
+		require(['src/main'], function () {});
+	</script>
+
+	<!-- Chrome frame install -->
+	<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
+	</script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7W6XF0WSR"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-H7W6XF0WSR');
+	</script>
+</head>
+<body id=simulator>
+	<header>
+		<div>
+			<img src="img/kamerasim_logo_hvit.png">
+			<a href="https://ndla.no" target="_blank" class="ndla-header__link">Gå til ndla.no<span class="material-icons">
+				launch
+			</span></a></div>
+	</header>
+	<div id=topContainer>
+		<h2>Motiv: <select id="sceneSelector"></select></h2>
+	</div>
+	<div id=simulationContainer>
+		<div id=cameraContainer>
+			<div id=leftColumn>
+				<div class="controlPanel">
+					<table>
+						<tr>
+							<td><label>Fokus</label></td>
+							<td>
+								<label data-focus="fore" title="Foreground">
+									<input name="focus" type="radio" value="fore" />Forgrunn
+								</label>
+								<label data-focus="back" title="Background">
+									<input name="focus" type="radio" value="back" />Bakgrunn
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td><label>Modus</label></td>
+							<td>
+								<form>
+									<label data-mode="A" title="Automatic">
+										<input name="mode" type="radio" value="A" />A
+									</label>
+									<label data-mode="Av" title="Aperture Priority">
+										<input name="mode" type="radio" value="Av" />Av
+									</label>
+									<label data-mode="Tv" title="Shutter Priority">
+										<input name="mode" type="radio" value="Tv" />Tv
+									</label>
+									<label data-mode="M" title="Manual">
+										<input name="mode" type="radio" value="M" />M
+									</label>
+								</form>
+							</td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td width="50%">
+								<label for="ISOAmount">ISO</label>
+								<output type="text" id="ISOAmount"></output>
+								<div id="ISOSlider" class=slider></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="apertureAmount">Blendaropning</label>
+								<output type="text" id="apertureAmount"></output>
+								<div id="apertureSlider" class=slider></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="shutterAmount">Lukkartid</label>
+								<output type="text" id="shutterAmount"></output>
+								<div id="shutterSlider" class=slider></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="exposureAmount">Eksponeringsverdi (EV)</label>
+								<output type="text" id="exposureAmount"></output>
+								<div id="exposureSlider" class=slider></div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id=simulationError>
+				</div>
+				<div id=simulationStatus>
+				</div>
+			</div>
+			<div id=rightColumn>
+				<div id="display">
+					<div id="loading">
+						Laster...
+					</div>
+					<canvas id="largeCanvas" width="540" height="360">
+						Nettleseren din støtter ikke Canvas.
+						<br />
+						Vennligst installer Google Chrome for å vise kamerasimulatoren.
+						<br />
+						<a href="https://www.google.com/chrome">Last ned Google Chrome</a>
+					</canvas>
+				</div>
+			</div>
+			<div id=scene>
+
+			</div>
+		</div>
+	</div>
+	<div id="footer">Av: <a href="http://steveridout.com/about">Steve Ridout</a> | <a href="https://github.com/SteveRidout/bethecamera">GitHub</a></div>
+
+
+</body>
+</html>
